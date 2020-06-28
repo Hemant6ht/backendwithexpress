@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="static/home.css">
+</head>
+<body>
+    <%- include ('partials/nav.ejs') %>
+    <h1>Hello Now you can get your name in reverse</h1>
+   
+        <input type="text" id="t1" name="name" style="font-size: 40px;text-align: center;">
+        <button onclick="sbt()" class="waves-effect waves-light btn-large">Getname</button>
+        <h2>Your name in reverse is</h2>
+        <h3 id="ans"></h3>
+    
+   <script>
+       const name = document.getElementById('t1');
+       const frm = document.getElementById('f1');
+       const ans = document.getElementById('ans'); 
+       function sbt(event){
+            console.log("hey");
+            const data = { username: name.value };
+            fetch('http://localhost:5000/handle_name', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+             ans.innerText=data.key;
+            })
+            .catch(error=>{
+                console.log("error");
+            })
+            
+       }
+   </script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
